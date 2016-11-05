@@ -1,5 +1,5 @@
 # JavaScript library sandbox
 
-- Chart.js
-- Gitgraph.js
+- [Chart.js](chartjs)
+- [Gitgraph.js](gitgraphjs)
 
