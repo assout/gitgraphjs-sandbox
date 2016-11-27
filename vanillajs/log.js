@@ -1,4 +1,4 @@
-#!bin/node
+#!/bin/node
 
 var count = 0;
 
