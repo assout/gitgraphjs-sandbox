@@ -1,38 +1,92 @@
-var gitgraph = new GitGraph({
-  elementId: "first"
-});
+// let myTemplateConfig = {
+//   // colors: [ "#F00", "#0F0", "#00F" ], // branches colors, 1 per column
+//   // branch: {
+//   //   lineWidth: 8,
+//   //   spacingX: 50,
+//   //   showLabel: true,                  // display branch names on graph
+//   // },
+//   commit: {
+//     // spacingY: -80,
+//     // dot: {
+//     //   size: 12
+//     // },
+//     message: {
+//       displayAuthor: true,
+//       // displayBranch: false,
+//       displayHash: false,
+//       // font: "normal 12pt Arial"
+//     },
+//     // shouldDisplayTooltipsInCompactMode: false, // default = true
+//     // tooltipHTMLFormatter: function ( commit ) {
+//     //   return "" + commit.sha1 + "" + ": " + commit.message;
+//     // }
+//   }
+// };
+// let myTemplate = new GitGraph.Template( myTemplateConfig );
 
-// masterブランチを作成 ＆ HEADを切り替えて2回コミット
-var master = gitgraph.branch('master');
-gitgraph.commit().commit();
+{
+  let g = new GitGraph({
+    elementId: "first",
+    template: 'blackarrow',
+    // mode: 'compact',
+    orientation: 'vertical-reverse'
+  });
 
-// developブランチを作成 ＆ HEADを切り替えて2回コミット
-var develop = gitgraph.branch('develop_porin');
-gitgraph.commit().commit();
+  let master = g.branch('master');
+  master.commit("最初のコミット");
 
-// HEADをmasterブランチに切り替えて1回コミット
-master.checkout();
-gitgraph.commit();
+  let a = master.branch('A機能開発');
+  a.commit("機能追加").commit("テストケース追加");
 
-// developブランチをmasterブランチにマージ
-develop.merge(master);
+  a.merge(master);
 
-var gitgraph = new GitGraph({
-  elementId: "seconds"
-});
+  let b = master.branch("B機能開発");
+  b.commit("機能追加").commit("テストケース追加");
 
-// masterブランチを作成 ＆ HEADを切り替えて2回コミット
-var master = gitgraph.branch('master');
-gitgraph.commit().commit();
+  b.merge(master);
+}
 
-// developブランチを作成 ＆ HEADを切り替えて2回コミット
-var develop = gitgraph.branch('develop_porin');
-gitgraph.commit().commit();
 
-// HEADをmasterブランチに切り替えて1回コミット
-master.checkout();
-gitgraph.commit();
+{
+  let g = new GitGraph({
+    elementId: "seconds",
+    template: 'blackarrow',
+    // mode: 'compact',
+    orientation: 'vertical-reverse'
+  });
 
-// developブランチをmasterブランチにマージ
-develop.merge(master);
+  let master = g.branch('master');
+  master.commit("最初のコミット");
 
+  let b = master.branch("B機能開発");
+  let a = master.branch('A機能開発');
+
+  a.commit("機能追加").commit("テストケース追加");
+  b.commit("機能追加").commit("テストケース追加");
+
+  b.merge(master);
+  a.merge(master);
+
+}
+
+{
+  let g = new GitGraph({
+    elementId: "third",
+    template: 'blackarrow',
+    // mode: 'compact',
+    orientation: 'vertical-reverse'
+  });
+
+  let master = g.branch('master');
+  master.commit("最初のコミット");
+
+  let b = master.branch("B機能開発");
+  let a = master.branch('A機能開発');
+
+  a.commit("機能追加").commit("テストケース追加");
+  b.commit("機能追加").commit("テストケース追加");
+
+  b.merge(master);
+  a.merge(master);
+
+}
