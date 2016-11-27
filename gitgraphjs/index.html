@@ -6,16 +6,30 @@
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/gitgraph.js/1.4.0/gitgraph.min.css" />
   </head>
   <body>
-    <h1>ど正常系</h1>
-    <canvas id="first"></canvas>
+    <h1>OK: ど正常。原則これを目指したい</h1>
+    <canvas id="normal"></canvas>
 
-    <h1>これもOK</h1>
-    <canvas id="seconds"></canvas>
+    <h1>OK: 普通の並行開発</h1>
+    <canvas id="parallel"></canvas>
 
-    <h1>これはダメ</h1>
-    <canvas id="third"></canvas>
+    <h1>NG: 派生元以外へのマージ(from branch to master)</h1>
+    <canvas id="to_master"></canvas>
+
+    <h1>NG: 派生元以外へのマージ(from master to branch)</h1>
+    <canvas id="to_branch"></canvas>
+
+    <h1>OK: 派生元へ定期的に追従</h1>
+    <canvas id="follow"></canvas>
+
+    <h1>OK(微妙): マージ後の再マージ</h1>
+    <canvas id="remarge"></canvas>
+
+    <h1>OK: サブブランチでの開発</h1>
+    M.R.の運用をちゃんと考えないと微妙になりそう
+    <canvas id="sub_branch"></canvas>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gitgraph.js/1.4.0/gitgraph.min.js"></script>
     <script src="index.js"></script>
   </body>
 </html>
+

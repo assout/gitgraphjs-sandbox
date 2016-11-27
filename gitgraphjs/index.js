@@ -1,4 +1,4 @@
-// let myTemplateConfig = {
+// const myTemplateConfig = {
 //   // colors: [ "#F00", "#0F0", "#00F" ], // branches colors, 1 per column
 //   // branch: {
 //   //   lineWidth: 8,
@@ -22,71 +22,156 @@
 //     // }
 //   }
 // };
-// let myTemplate = new GitGraph.Template( myTemplateConfig );
+// const myTemplate = new GitGraph.Template( myTemplateConfig );
 
 {
-  let g = new GitGraph({
-    elementId: "first",
+  const g = new GitGraph({
+    elementId: "normal",
     template: 'blackarrow',
-    // mode: 'compact',
     orientation: 'vertical-reverse'
   });
 
-  let master = g.branch('master');
-  master.commit("最初のコミット");
+  const m = g.branch('master');
+  m.commit("最初のコミット");
 
-  let a = master.branch('A機能開発');
+  const a = m.branch('A機能開発');
   a.commit("機能追加").commit("テストケース追加");
 
-  a.merge(master);
+  a.merge(m);
 
-  let b = master.branch("B機能開発");
+  const b = m.branch("B機能開発");
   b.commit("機能追加").commit("テストケース追加");
 
-  b.merge(master);
+  b.merge(m);
 }
 
 
 {
-  let g = new GitGraph({
-    elementId: "seconds",
+  const g = new GitGraph({
+    elementId: "parallel",
     template: 'blackarrow',
-    // mode: 'compact',
     orientation: 'vertical-reverse'
   });
 
-  let master = g.branch('master');
-  master.commit("最初のコミット");
+  const m = g.branch('master');
+  m.commit("最初のコミット");
 
-  let b = master.branch("B機能開発");
-  let a = master.branch('A機能開発');
+  const a = m.branch('A機能開発');
+  const b = m.branch("B機能開発");
 
   a.commit("機能追加").commit("テストケース追加");
   b.commit("機能追加").commit("テストケース追加");
 
-  b.merge(master);
-  a.merge(master);
+  b.merge(m);
+  a.merge(m);
 
 }
 
 {
-  let g = new GitGraph({
-    elementId: "third",
+  const g = new GitGraph({
+    elementId: "to_master",
     template: 'blackarrow',
-    // mode: 'compact',
     orientation: 'vertical-reverse'
   });
 
-  let master = g.branch('master');
-  master.commit("最初のコミット");
+  const m = g.branch('master');
+  m.commit("最初のコミット");
 
-  let b = master.branch("B機能開発");
-  let a = master.branch('A機能開発');
-
+  const a = m.branch('A機能開発');
   a.commit("機能追加").commit("テストケース追加");
+
+  const b = a.branch("B機能開発");
+
   b.commit("機能追加").commit("テストケース追加");
 
-  b.merge(master);
-  a.merge(master);
+  b.merge(m);
+  a.merge(m);
+}
 
+{
+  const g = new GitGraph({
+    elementId: "to_branch",
+    template: 'blackarrow',
+    orientation: 'vertical-reverse'
+  });
+
+  const m = g.branch('master');
+  m.commit("最初のコミット");
+
+  const a = m.branch('A機能開発');
+  a.commit("機能追加").commit("テストケース追加");
+
+  const b = m.branch("B機能開発");
+
+  b.commit("機能追加").commit("テストケース追加");
+
+  b.merge(a);
+  a.merge(m);
+}
+
+{
+  const g = new GitGraph({
+    elementId: "follow",
+    template: 'blackarrow',
+    orientation: 'vertical-reverse'
+  });
+
+  const m = g.branch('master');
+  m.commit("最初のコミット");
+
+  const a = m.branch('A機能開発');
+  a.commit("機能追加");
+
+  m.commit("B機能追加");
+  m.merge(a);
+
+  a.commit("テストケース追加");
+
+  a.merge(m);
+}
+
+{
+  const g = new GitGraph({
+    elementId: "remarge",
+    template: 'blackarrow',
+    orientation: 'vertical-reverse'
+  });
+
+  const m = g.branch('master');
+  m.commit("最初のコミット");
+
+  const a = m.branch('A機能開発');
+  a.commit("機能追加");
+
+  a.commit("テストケース追加");
+
+  a.merge(m);
+
+  a.commit("テストケース修正");
+
+  a.merge(m);
+}
+
+{
+  const g = new GitGraph({
+    elementId: "sub_branch",
+    template: 'blackarrow',
+    orientation: 'vertical-reverse'
+  });
+
+  const m = g.branch('master');
+  m.commit("最初のコミット");
+
+  const a = m.branch('A機能開発');
+  a.commit("Empty commit");
+
+  const a1 = a.branch('A1機能開発')
+  a1.commit("機能追加").commit("テストケース追加");
+
+  const a2 = a.branch('A2機能開発')
+  a2.commit("機能追加").commit("テストケース追加");
+  a1.merge(a);
+  a2.merge(a);
+
+  a.merge(m);
 }
